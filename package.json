@@ -1,5 +1,6 @@
 {
   "name": "workitout",
+  "homepage": "https://github.com/OnlyDoGood/workitout/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +10,8 @@
     "test": "vitest run",
     "lint": "oxlint",
     "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "server": "node server.js"
   },
   "dependencies": {
