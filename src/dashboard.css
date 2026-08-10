@@ -1,0 +1,47 @@
+.dashboard-shell { min-height: 100vh; background: linear-gradient(135deg, #111111, #333333); color: #f5f5f5; padding: 32px; }
+.dashboard-list { display: grid; gap: 16px; margin-top: 20px; }
+.dashboard-card, .routine-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 18px; padding: 16px; }
+.sessions-header { max-width: 1120px; margin: 0 auto 32px; display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.sessions-header h1 { margin: 0 0 8px; font-size: clamp(2.4rem, 6vw, 4.8rem); line-height: 0.95; }
+.sessions-header > div > p:last-child { margin: 0; color: #d0d0d0; }
+.home-button { border: 2px solid #ffffff; border-radius: 12px; padding: 12px 18px; background: #ffffff; color: #000000; cursor: pointer; font: inherit; font-weight: 800; white-space: nowrap; }
+.home-button:hover, .home-button:focus-visible { background: #d0d0d0; border-color: #d0d0d0; }
+.routine-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.routine-card { padding: 22px; }
+.routine-card-heading { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.routine-card h2 { margin: 0; color: #ffffff; }
+.routine-card-heading span { flex-shrink: 0; color: #000000; background: #ffffff; border-radius: 999px; padding: 5px 9px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
+.routine-card > p { color: #d0d0d0; margin: 10px 0 16px; }
+.routine-card ol { margin: 0; padding-left: 22px; color: #f5f5f5; line-height: 1.8; }
+.session-booking-section { max-width: 1120px; margin: 40px auto 0; padding: 28px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 18px; background: rgba(0, 0, 0, 0.78); }
+.session-booking-section h2 { margin: 0 0 8px; }
+.session-booking-section > div > p:last-child { margin-top: 0; color: #d0d0d0; }
+.session-booking-form { display: grid; gap: 16px; margin-top: 24px; }
+.session-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.session-booking-form label { display: grid; gap: 8px; color: #f5f5f5; font-weight: 700; }
+.session-booking-form input, .session-booking-form select, .session-booking-form textarea { width: 100%; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 11px 12px; background: rgba(255, 255, 255, 0.09); color: #f5f5f5; font: inherit; }
+.session-booking-form option { background: #000000; }
+.session-form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.session-confirmation { margin: 0; color: #ffffff; }
+
+.dashboard-shell.theme-ocean { background: linear-gradient(135deg, #071923, #1c5870); }
+.dashboard-shell.theme-ocean .routine-card, .dashboard-shell.theme-ocean .session-booking-section { background: rgba(2, 15, 25, 0.84); border-color: rgba(104, 190, 220, 0.5); }
+.dashboard-shell.theme-ocean .routine-card h2 { color: #9ee8ff; }
+.dashboard-shell.theme-ocean .home-button { background: #9ee8ff; border-color: #9ee8ff; }
+
+.dashboard-shell.theme-forest { background: linear-gradient(135deg, #0c1b13, #28513b); }
+.dashboard-shell.theme-forest .routine-card, .dashboard-shell.theme-forest .session-booking-section { background: rgba(3, 16, 9, 0.84); border-color: rgba(142, 205, 157, 0.5); }
+.dashboard-shell.theme-forest .routine-card h2 { color: #c2efc9; }
+.dashboard-shell.theme-forest .home-button { background: #c2efc9; border-color: #c2efc9; }
+
+.dashboard-shell.theme-ember { background: linear-gradient(135deg, #1d0d08, #713e2c); }
+.dashboard-shell.theme-ember .routine-card, .dashboard-shell.theme-ember .session-booking-section { background: rgba(22, 7, 3, 0.86); border-color: rgba(239, 159, 119, 0.5); }
+.dashboard-shell.theme-ember .routine-card h2 { color: #ffd0b7; }
+.dashboard-shell.theme-ember .home-button { background: #ffd0b7; border-color: #ffd0b7; }
+
+@media (max-width: 720px) {
+  .dashboard-shell { padding: 24px 16px; }
+  .sessions-header { align-items: start; flex-direction: column; }
+  .routine-grid, .session-form-grid { grid-template-columns: 1fr; }
+  .session-booking-section { padding: 20px; }
+}
