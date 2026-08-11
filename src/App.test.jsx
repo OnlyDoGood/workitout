@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildBookingNotification, formatDateKey, getMonthGrid, getSessionLabel, getSessionOptions, isSameDay } from './bookingUtils'
+import { buildBookingNotification, formatDateKey, formatPrice, getMonthGrid, getPlan, getSessionLabel, getSessionOptions, isSameDay, homeServiceFee } from './bookingUtils'
 
 describe('booking utilities', () => {
   it('formats dates correctly', () => {
@@ -31,5 +31,13 @@ describe('booking utilities', () => {
     expect(notification.title).toContain('Session booked')
     expect(notification.message).toContain('Ada')
     expect(notification.message).toContain('Personal Training')
+  })
+
+  it('provides sustainable plan pricing and formats totals', () => {
+    const foundation = getPlan('foundation')
+
+    expect(foundation.price).toBe(48000)
+    expect(formatPrice(foundation.price + homeServiceFee)).toBe('₦53,000')
+    expect(getPlan('missing').id).toBe('single-session')
   })
 })

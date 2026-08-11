@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import './dashboard.css'
-import { buildBookingNotification, formatDateKey, getMonthGrid, getSessionOptions, isSameDay, weekDays } from './bookingUtils'
+import { buildBookingNotification, formatDateKey, formatPrice, getMonthGrid, getPlan, getSessionOptions, homeServiceFee, isSameDay, plans, weekDays } from './bookingUtils'
 import BookingDashboard from './BookingDashboard'
 
 const slots = [
@@ -39,6 +39,7 @@ function AppContent({ user }) {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedSlot, setSelectedSlot] = useState(slots[0].value)
   const [selectedSessionType, setSelectedSessionType] = useState(getSessionOptions()[0]?.value || 'personal-training')
+  const [selectedPlanId, setSelectedPlanId] = useState(plans[1].id)
   const [homeService, setHomeService] = useState(false)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -90,6 +91,8 @@ function AppContent({ user }) {
   }
 
   const bookedKeys = useMemo(() => new Set(bookings.map((item) => item.date)), [bookings])
+  const selectedPlan = getPlan(selectedPlanId)
+  const bookingTotal = selectedPlan.price + (homeService ? homeServiceFee : 0)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -100,6 +103,9 @@ function AppContent({ user }) {
       date: formatDateKey(selectedDate),
       slot: selectedSlot,
       sessionType: selectedSessionType,
+      planId: selectedPlan.id,
+      planName: selectedPlan.name,
+      price: bookingTotal,
       homeService,
       notes,
     }
@@ -199,9 +205,32 @@ function AppContent({ user }) {
 
       <main>
         <section className="section-grid" id="booking">
+          <div className="card pricing-card" id="plans">
+            <p className="eyebrow section-eyebrow">Choose your commitment</p>
+            <h2>Plans and pricing</h2>
+            <p className="section-intro">Straightforward rates that protect your coaching time and give you room to progress.</p>
+            <div className="plan-grid">
+              {plans.map((plan) => (
+                <div className={`price-box ${plan.featured ? 'featured' : ''} ${selectedPlanId === plan.id ? 'selected-plan' : ''}`} key={plan.id}>
+                  <p className="price-label">{plan.name}</p>
+                  <p className="price">{formatPrice(plan.price)}</p>
+                  <p className="price-billing">{plan.billing}</p>
+                  <p>{plan.description}</p>
+                  <ul className="plan-features">
+                    {plan.features.map((feature) => <li key={feature}>{feature}</li>)}
+                  </ul>
+                  <button type="button" className="secondary-link plan-select" onClick={() => setSelectedPlanId(plan.id)} aria-pressed={selectedPlanId === plan.id}>
+                    {selectedPlanId === plan.id ? 'Selected plan' : 'Choose this plan'}
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="pricing-note">Home visits add {formatPrice(homeServiceFee)} for travel and setup. Plans are paid monthly; your exact schedule is confirmed after your request.</p>
+          </div>
+
           <div className="card booking-card">
             <h2>Book your next session</h2>
-            <p>Select a date from the calendar and submit your request for confirmation.</p>
+            <p>Choose a plan first, then select a date and submit your request for confirmation.</p>
 
             <div className="calendar-card">
               <div className="calendar-header">
@@ -247,6 +276,13 @@ function AppContent({ user }) {
                   Your name
                 </label>
                 <input id="name" value={name} onChange={(event) => setName(event.target.value)} required />
+              </div>
+
+              <div className="summary-box booking-summary">
+                <p className="price-label">Selected plan</p>
+                <strong>{selectedPlan.name}</strong>
+                <span>{formatPrice(selectedPlan.price)}{homeService ? ` + ${formatPrice(homeServiceFee)} home visit` : ''}</span>
+                <b>Total: {formatPrice(bookingTotal)}</b>
               </div>
 
               <div className="field-group">
@@ -322,31 +358,6 @@ function AppContent({ user }) {
             )}
           </div>
 
-          <div className="card pricing-card">
-            <h2>Plans and pricing</h2>
-            <div className="plan-grid">
-              <div className="price-box featured">
-                <p className="price-label">Monthly coaching plan</p>
-                <p className="price">₦10,000</p>
-                <p>Ideal for clients who want a recurring plan with consistent support and accountability.</p>
-              </div>
-              <div className="price-box">
-                <p className="price-label">Starter package</p>
-                <p className="price">₦4,500</p>
-                <p>Perfect for a short reset with two guided sessions and a simple action plan.</p>
-              </div>
-              <div className="price-box">
-                <p className="price-label">Home session</p>
-                <p className="price">Per session</p>
-                <p>Book a personal session at home when you want training without leaving your space.</p>
-              </div>
-              <div className="price-box">
-                <p className="price-label">Corporate wellness</p>
-                <p className="price">Custom</p>
-                <p>Flexible coaching for teams, events, and lifestyle wellness programs.</p>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section className="card guidelines-card" id="guidelines">

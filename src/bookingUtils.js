@@ -8,6 +8,44 @@ export const sessionOptions = [
   { label: 'Custom Plan', value: 'custom' },
 ]
 
+export const plans = [
+  {
+    id: 'single-session',
+    name: 'Single session',
+    price: 15000,
+    billing: 'per 60-minute session',
+    description: 'A focused workout for a clear goal, technique check, or fresh start.',
+    features: ['Goal and movement check-in', 'Personalised session plan', 'Post-session next steps'],
+  },
+  {
+    id: 'foundation',
+    name: 'Foundation',
+    price: 48000,
+    billing: '4 sessions / month',
+    description: 'A consistent weekly rhythm for building strength, mobility, and accountability.',
+    features: ['4 coached sessions', 'Weekly progress check-in', 'Simple plan between sessions'],
+    featured: true,
+  },
+  {
+    id: 'progress',
+    name: 'Progress',
+    price: 88000,
+    billing: '8 sessions / month',
+    description: 'Twice-weekly coaching for clients ready to make measurable progress.',
+    features: ['8 coached sessions', 'Priority scheduling', 'Training plan adjustments'],
+  },
+]
+
+export const homeServiceFee = 5000
+
+export function getPlan(planId) {
+  return plans.find((plan) => plan.id === planId) || plans[0]
+}
+
+export function formatPrice(amount) {
+  return `₦${amount.toLocaleString('en-NG')}`
+}
+
 export function getMonthGrid(date) {
   const year = date.getFullYear()
   const month = date.getMonth()

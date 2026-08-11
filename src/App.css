@@ -48,7 +48,7 @@
 .owner-card { margin-top: 16px; padding: 14px; border-radius: 16px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); }
 .owner-card h3 { margin-bottom: 8px; }
 main { padding: 0 24px 48px; max-width: 1120px; margin: 0 auto; }
-.section-grid { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 24px; margin-bottom: 24px; }
+.section-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
 .booking-form { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; }
 .field-group { display: flex; flex-direction: column; gap: 8px; }
 .field-group input, .field-group select, .field-group textarea { border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.08); color: #f5f5f5; padding: 10px 12px; box-sizing: border-box; }
@@ -76,11 +76,22 @@ main { padding: 0 24px 48px; max-width: 1120px; margin: 0 auto; }
 .popup-card p { margin-bottom: 16px; line-height: 1.6; color: #d0d0d0; }
 .toast-stack { position: fixed; right: 20px; bottom: 20px; z-index: 20; }
 .toast { padding: 12px 14px; border-radius: 999px; background: #ffffff; color: #000000; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24); font-weight: 700; }
-.price-box { padding: 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.06); margin-top: 12px; }
-.plan-grid { display: grid; gap: 12px; margin-top: 16px; }
+.price-box { display: flex; flex-direction: column; padding: 18px; border-radius: 18px; background: rgba(255, 255, 255, 0.06); margin-top: 12px; }
+.plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .price-box.featured { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.3); }
+.price-box.selected-plan { border-color: #ffffff; box-shadow: inset 0 0 0 1px #ffffff, 0 10px 24px rgba(0, 0, 0, 0.18); }
 .price-label { text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.08em; opacity: 0.8; }
 .price { font-size: 1.7rem; font-weight: 700; margin: 6px 0; }
+.price-billing { color: #d0d0d0; font-size: 0.86rem; margin-bottom: 12px; }
+.plan-features { padding-left: 18px; color: #d0d0d0; line-height: 1.7; min-height: 82px; }
+.plan-select { align-self: flex-start; margin-top: auto; background: transparent; cursor: pointer; font: inherit; }
+.selected-plan .plan-select { background: #ffffff; color: #000000; }
+.pricing-note, .section-intro { color: #d0d0d0; }
+.pricing-note { margin-top: 18px; font-size: 0.9rem; }
+.section-eyebrow { margin-bottom: 12px; }
+.booking-summary { display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px 12px; align-items: center; }
+.booking-summary .price-label { grid-column: 1 / -1; }
+.booking-summary span { color: #d0d0d0; }
 .guidelines-card { margin-top: 24px; }
 .guideline-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
 .guideline-list h3 { margin-bottom: 6px; }
@@ -130,7 +141,7 @@ main { padding: 0 24px 48px; max-width: 1120px; margin: 0 auto; }
 .page-shell.theme-ember .weekday-row, .page-shell.theme-ember .popup-card h3 { color: #ffd0b7; }
 
 @media (max-width: 840px) {
-  .hero-grid, .section-grid, .guideline-list { grid-template-columns: 1fr; }
+  .hero-grid, .section-grid, .guideline-list, .plan-grid { grid-template-columns: 1fr; }
   .hero-section, main { padding-left: 16px; padding-right: 16px; }
   .topbar { padding: 12px 14px; flex-wrap: wrap; }
   .menu-toggle { display: grid; gap: 4px; width: 42px; height: 38px; margin-left: auto; padding: 9px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; background: transparent; cursor: pointer; }
@@ -141,4 +152,5 @@ main { padding: 0 24px 48px; max-width: 1120px; margin: 0 auto; }
   .theme-picker { margin: 6px 0 0; padding: 10px 4px 2px; border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.14); justify-content: space-between; }
   .theme-swatch { width: 22px; height: 22px; }
   .site-footer { grid-template-columns: 1fr; align-items: start; padding-left: 16px; padding-right: 16px; }
+  .booking-summary { grid-template-columns: 1fr; }
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { buildBookingNotification, getSessionOptions } from './bookingUtils'
+import { buildBookingNotification, formatPrice, getSessionOptions, plans } from './bookingUtils'
 
 const routineSamples = [
   {
@@ -45,6 +45,7 @@ function BookingDashboard({ onBack, user, theme }) {
   const [date, setDate] = useState(getToday())
   const [slot, setSlot] = useState(slots[0])
   const [sessionType, setSessionType] = useState(getSessionOptions()[0].value)
+  const [planId, setPlanId] = useState(plans[1].id)
   const [notes, setNotes] = useState('')
   const [confirmation, setConfirmation] = useState('')
 
@@ -58,6 +59,9 @@ function BookingDashboard({ onBack, user, theme }) {
       date,
       slot,
       sessionType,
+      planId,
+      planName: plans.find((plan) => plan.id === planId).name,
+      price: plans.find((plan) => plan.id === planId).price,
       homeService: false,
       notes,
       status: 'pending',
@@ -103,6 +107,11 @@ function BookingDashboard({ onBack, user, theme }) {
           <p className="eyebrow">Ready to train?</p>
           <h2>Book from the Sessions page</h2>
           <p>Send your details and preferred session. Your request will be reviewed and confirmed by the studio.</p>
+          <div className="session-plan-list">
+            <strong>Plans from {formatPrice(plans[0].price)}</strong>
+            <span>Foundation: {formatPrice(plans[1].price)} / 4 sessions</span>
+            <span>Progress: {formatPrice(plans[2].price)} / 8 sessions</span>
+          </div>
         </div>
 
         <form className="session-booking-form" onSubmit={handleSubmit}>
@@ -133,6 +142,12 @@ function BookingDashboard({ onBack, user, theme }) {
               Session type
               <select value={sessionType} onChange={(event) => setSessionType(event.target.value)}>
                 {getSessionOptions().map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+            <label>
+              Coaching plan
+              <select value={planId} onChange={(event) => setPlanId(event.target.value)}>
+                {plans.map((plan) => <option key={plan.id} value={plan.id}>{plan.name} - {formatPrice(plan.price)}</option>)}
               </select>
             </label>
           </div>
